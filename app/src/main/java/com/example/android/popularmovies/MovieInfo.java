@@ -3,39 +3,41 @@ package com.example.android.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class MovieInfo implements Parcelable {
+public class MovieInfo implements Parcelable {
 
-    private String title;
-    private String originalTitle;
-    private String posterImageUrl;
-    private String plotSynopsisUrl;
-    private float userRating;
-    private String releaseDate;
+    int voteCount;
+    int id;
+    boolean video;
+    float voteAverage;
+    String title;
+    float popularity;
+    String posterPath;
+    String originalLanguage;
+    String originalTitle;
+    String genreIds;
+    String backdropPath;
+    boolean adult;
+    String overview;
+    String releaseDate;
 
-    MovieInfo(String title, String originalTitle, String posterImageUrl, String plotSynopsisUrl, float userRating, String releaseDate) {
-
-        this.title = title;
-        this.originalTitle = originalTitle;
-        this.posterImageUrl = posterImageUrl;
-        this.plotSynopsisUrl = plotSynopsisUrl;
-        this.userRating = userRating;
-        this.releaseDate = releaseDate;
-
-    }
-
-    private MovieInfo(Parcel in) {
-
+    MovieInfo(Parcel in) {
+        voteCount = in.readInt();
+        id = in.readInt();
+        video = in.readByte() != 0;
+        voteAverage = in.readFloat();
         title = in.readString();
+        popularity = in.readFloat();
+        posterPath = in.readString();
+        originalLanguage = in.readString();
         originalTitle = in.readString();
-        posterImageUrl = in.readString();
-        plotSynopsisUrl = in.readString();
-        userRating = in.readFloat();
+        genreIds = in.readString();
+        backdropPath = in.readString();
+        adult = in.readByte() != 0;
+        overview = in.readString();
         releaseDate = in.readString();
-
     }
 
     public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
-
         @Override
         public MovieInfo createFromParcel(Parcel in) {
             return new MovieInfo(in);
@@ -45,7 +47,6 @@ class MovieInfo implements Parcelable {
         public MovieInfo[] newArray(int size) {
             return new MovieInfo[size];
         }
-
     };
 
     @Override
@@ -55,24 +56,84 @@ class MovieInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeInt(voteCount);
+        parcel.writeInt(id);
+        parcel.writeByte((byte) (video ? 1 : 0));
+        parcel.writeFloat(voteAverage);
         parcel.writeString(title);
+        parcel.writeFloat(popularity);
+        parcel.writeString(posterPath);
+        parcel.writeString(originalLanguage);
         parcel.writeString(originalTitle);
-        parcel.writeString(posterImageUrl);
-        parcel.writeString(plotSynopsisUrl);
-        parcel.writeFloat(userRating);
+        parcel.writeString(genreIds);
+        parcel.writeString(backdropPath);
+        parcel.writeByte((byte) (adult ? 1 : 0));
+        parcel.writeString(overview);
         parcel.writeString(releaseDate);
+    }
 
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isVideo() {
+        return video;
+    }
+
+    public void setVideo(boolean video) {
+        this.video = video;
+    }
+
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
     }
 
     public String getTitle() {
-
         return title;
-
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public float getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
     }
 
     public String getOriginalTitle() {
@@ -83,28 +144,36 @@ class MovieInfo implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public String getPosterImageUrl() {
-        return posterImageUrl;
+    public String getGenreIds() {
+        return genreIds;
     }
 
-    public void setPosterImageUrl(String posterImageUrl) {
-        this.posterImageUrl = posterImageUrl;
+    public void setGenreIds(String genreIds) {
+        this.genreIds = genreIds;
     }
 
-    public String getPlotSynopsisUrl() {
-        return plotSynopsisUrl;
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
-    public void setPlotSynopsisUrl(String plotSynopsisUrl) {
-        this.plotSynopsisUrl = plotSynopsisUrl;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
-    public float getUserRating() {
-        return userRating;
+    public boolean isAdult() {
+        return adult;
     }
 
-    public void setUserRating(float userRating) {
-        this.userRating = userRating;
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public String getReleaseDate() {
@@ -114,15 +183,8 @@ class MovieInfo implements Parcelable {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-}
 
-// 1. 영화 이름
-// 2. 원제
-// 3. 영화 포스터 이미지(주소)
-// 4. 줄거리 개요
-// 5. 평점
-// 6. 개봉일
-// 정렬시 필요한 내용: 인기도, 평점
+}
 
 //    Your app will:
 //        Upon launch, present the user with an grid arrangement of movie posters.

@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
 
     private MovieInfo[] movieInfoList;
     private final RecyclerViewClickListener recyclerViewClickListener;
 
-    MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener) {
+    public MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener) {
 
         this.movieInfoList = null;
 
@@ -48,13 +48,13 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
         return movieInfoList.length;
     }
 
-    void setMovieInfoList(MovieInfo[] movieInfoList) {
+    public void setMovieInfoList(MovieInfo[] movieInfoList) {
 
         this.movieInfoList = movieInfoList;
 
     }
 
-    MovieInfo[] getMovieInfoList() {
+    public MovieInfo[] getMovieInfoList() {
 
         return movieInfoList;
 
@@ -76,7 +76,7 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
 
         void bind(int position) {
 
-            imagePosterUrl.setText(movieInfoList[position].getPosterImageUrl());
+            imagePosterUrl.setText(movieInfoList[position].getPosterPath());
 
         }
 
@@ -89,7 +89,7 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
 
     }
 
-    interface RecyclerViewClickListener {
+    public interface RecyclerViewClickListener {
 
         void onListItemClicked(int position);
 

@@ -1,10 +1,15 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.android.popularmovies.MovieInfoRequestionTask;
+import com.example.android.popularmovies.MovieListAdapter;
+import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.utilities.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener {
 
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     void loadPage() {
 
         movieListAdapter.setMovieInfoList(null);
-        new MovieInfoRequestionTask(movieListAdapter).execute("aaa");
+        new MovieInfoRequestionTask(movieListAdapter).execute(NetworkUtils.POPULAR_MOVIE_URL);
         movieListRecyclerView.setAdapter(movieListAdapter);
 
     }

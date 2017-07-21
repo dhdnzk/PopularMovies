@@ -2,11 +2,17 @@ package com.example.android.popularmovies;
 
 import android.os.AsyncTask;
 
-class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
+import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
+import com.example.android.popularmovies.utilities.NetworkUtils;
+
+import java.io.IOException;
+import java.net.URL;
+
+public class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
 
     private MovieListAdapter adapter;
 
-    MovieInfoRequestionTask(MovieListAdapter adapter) {
+    public MovieInfoRequestionTask(MovieListAdapter adapter) {
 
         this.adapter = adapter;
 
@@ -15,7 +21,19 @@ class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
     @Override
     protected MovieInfo[] doInBackground(String... strings) {
 
-        return MockMovieInfoList.movieInfos;
+        String responsedJsonString = null;
+
+        try {
+
+            responsedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(strings[0]));
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return MovieDBJsonUtils.getSimpleWeatherStringsFromJson(responsedJsonString);
 
     }
 
