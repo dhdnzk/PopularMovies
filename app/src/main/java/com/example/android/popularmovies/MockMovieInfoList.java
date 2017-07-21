@@ -1,6 +1,6 @@
 package com.example.android.popularmovies;
 
-public class MocMovieInfoList {
+public class MockMovieInfoList {
 
     public static MovieInfo[] movieInfos =
             {

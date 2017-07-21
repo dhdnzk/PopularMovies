@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     RecyclerView movieListRecyclerView;
     MovieListAdapter movieListAdapter;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        layoutManager = new GridLayoutManager(this, 2);
         movieListAdapter = new MovieListAdapter(this);
 
         movieListRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     void loadPage() {
 
         movieListAdapter.setMovieInfoList(null);
-        new MovieInfoRequestTask(movieListAdapter).execute("aaa");
+        new MovieInfoRequestionTask(movieListAdapter).execute("aaa");
         movieListRecyclerView.setAdapter(movieListAdapter);
 
     }
