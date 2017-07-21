@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
 import com.example.android.popularmovies.utilities.NetworkUtils;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -21,19 +23,21 @@ public class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]
     @Override
     protected MovieInfo[] doInBackground(String... strings) {
 
-        String responsedJsonString = null;
+        String respondedJsonString = null;
+        MovieInfo[] movieInfoList = new MovieInfo[0];
 
         try {
 
-            responsedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(strings[0]));
+            respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(strings[0]));
+            movieInfoList = MovieDBJsonUtils.getMovieInfoArrayFromJsonString(respondedJsonString);
 
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
 
             e.printStackTrace();
 
         }
 
-        return MovieDBJsonUtils.getSimpleWeatherStringsFromJson(responsedJsonString);
+        return movieInfoList;
 
     }
 

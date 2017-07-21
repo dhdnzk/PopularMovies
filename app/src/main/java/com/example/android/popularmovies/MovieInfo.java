@@ -5,37 +5,70 @@ import android.os.Parcelable;
 
 public class MovieInfo implements Parcelable {
 
-    int voteCount;
-    int id;
-    boolean video;
-    float voteAverage;
-    String title;
-    float popularity;
-    String posterPath;
-    String originalLanguage;
-    String originalTitle;
-    String genreIds;
-    String backdropPath;
-    boolean adult;
-    String overview;
-    String releaseDate;
+    private int voteCount;
+    private int id;
+    private boolean video;
+    private double voteAverage;
+    private String title;
+    private double popularity;
+    private String posterPath;
+    private String originalLanguage;
+    private String originalTitle;
+    private int[] genreIds;
+    private String backdropPath;
+    private boolean adult;
+    private String overview;
+    private String releaseDate;
 
-    MovieInfo(Parcel in) {
+    private MovieInfo(Parcel in) {
         voteCount = in.readInt();
         id = in.readInt();
         video = in.readByte() != 0;
-        voteAverage = in.readFloat();
+        voteAverage = in.readDouble();
         title = in.readString();
-        popularity = in.readFloat();
+        popularity = in.readDouble();
         posterPath = in.readString();
         originalLanguage = in.readString();
         originalTitle = in.readString();
-        genreIds = in.readString();
+        genreIds = in.createIntArray();
         backdropPath = in.readString();
         adult = in.readByte() != 0;
         overview = in.readString();
         releaseDate = in.readString();
     }
+
+    public MovieInfo(int voteCount,
+                     int id,
+                     boolean video,
+                     double voteAverage,
+                     String title,
+                     double popularity,
+                     String posterPath,
+                     String originalLanguages,
+                     String originalTitles,
+                     int[] genreIds,
+                     String backdropPath,
+                     boolean adult,
+                     String overView,
+                     String releaseDate) {
+
+        this.voteCount = voteCount;
+        this.id = id;
+        this.video = video;
+        this.voteAverage = voteAverage;
+        this.title = title;
+        this.popularity = popularity;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguages;
+        this.originalTitle = originalTitles;
+        this.genreIds = genreIds;
+        this.backdropPath = backdropPath;
+        this.adult = adult;
+        this.overview = overView;
+        this.releaseDate = releaseDate;
+
+    }
+
 
     public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
         @Override
@@ -59,13 +92,13 @@ public class MovieInfo implements Parcelable {
         parcel.writeInt(voteCount);
         parcel.writeInt(id);
         parcel.writeByte((byte) (video ? 1 : 0));
-        parcel.writeFloat(voteAverage);
+        parcel.writeDouble(voteAverage);
         parcel.writeString(title);
-        parcel.writeFloat(popularity);
+        parcel.writeDouble(popularity);
         parcel.writeString(posterPath);
         parcel.writeString(originalLanguage);
         parcel.writeString(originalTitle);
-        parcel.writeString(genreIds);
+        parcel.writeIntArray(genreIds);
         parcel.writeString(backdropPath);
         parcel.writeByte((byte) (adult ? 1 : 0));
         parcel.writeString(overview);
@@ -96,11 +129,11 @@ public class MovieInfo implements Parcelable {
         this.video = video;
     }
 
-    public float getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(float voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -112,11 +145,11 @@ public class MovieInfo implements Parcelable {
         this.title = title;
     }
 
-    public float getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(float popularity) {
+    public void setPopularity(double popularity) {
         this.popularity = popularity;
     }
 
@@ -144,11 +177,11 @@ public class MovieInfo implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public String getGenreIds() {
+    public int[] getGenreIds() {
         return genreIds;
     }
 
-    public void setGenreIds(String genreIds) {
+    public void setGenreIds(int[] genreIds) {
         this.genreIds = genreIds;
     }
 
@@ -183,7 +216,6 @@ public class MovieInfo implements Parcelable {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-
 }
 
 //    Your app will:

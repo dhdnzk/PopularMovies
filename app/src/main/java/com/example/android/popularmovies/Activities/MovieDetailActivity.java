@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.Activities;
+package com.example.android.popularmovies.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import com.example.android.popularmovies.R;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    TextView textView;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.tv_movie_detail);
 
         textView.setText(getIntent().getStringExtra("movieInfo"));
-        
+
     }
 }

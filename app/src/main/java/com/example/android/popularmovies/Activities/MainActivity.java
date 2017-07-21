@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.Activities;
+package com.example.android.popularmovies.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,8 @@ import com.example.android.popularmovies.utilities.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener {
 
-    RecyclerView movieListRecyclerView;
-    MovieListAdapter movieListAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView movieListRecyclerView;
+    private MovieListAdapter movieListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        layoutManager = new GridLayoutManager(this, 2);
+        NetworkUtils.API_KEY = getString(R.string.api_key);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+
         movieListAdapter = new MovieListAdapter(this);
 
         movieListRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     }
 
-    void loadPage() {
+    private void loadPage() {
 
         movieListAdapter.setMovieInfoList(null);
         new MovieInfoRequestionTask(movieListAdapter).execute(NetworkUtils.POPULAR_MOVIE_URL);
