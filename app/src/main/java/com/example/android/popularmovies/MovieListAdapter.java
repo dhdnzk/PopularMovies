@@ -14,7 +14,10 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
 
     MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener) {
 
+        this.movieInfoList = null;
+
         this.recyclerViewClickListener = recyclerViewClickListener;
+
     }
 
     @Override
@@ -67,6 +70,8 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
 
             imagePosterUrl = itemView.findViewById(R.id.tv_tmp_poster_url);
 
+            itemView.setOnClickListener(this);
+
         }
 
         void bind(int position) {
@@ -78,14 +83,15 @@ class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListVi
         @Override
         public void onClick(View view) {
 
-            recyclerViewClickListener.onListClick(getAdapterPosition());
+            recyclerViewClickListener.onListItemClicked(getAdapterPosition());
 
         }
+
     }
 
     interface RecyclerViewClickListener {
 
-        void onListClick(int position);
+        void onListItemClicked(int position);
 
     }
 

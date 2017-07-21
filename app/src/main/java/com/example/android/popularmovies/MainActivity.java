@@ -1,10 +1,10 @@
 package com.example.android.popularmovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener {
 
@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     @Override
-    public void onListClick(int position) {
+    public void onListItemClicked(int clickedItemIdx) {
 
-//        Intent intent = new Intent(this, MovieDetailActivity.class);
-//        intent.putExtra("movieInfo", movieListAdapter.getMovieInfoList()[position]);
-//        startActivity(intent);
-
-        Toast.makeText(this, position + "is clicked!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MovieDetailActivity.class);
+        intent.putExtra("movieInfo", movieListAdapter.getMovieInfoList()[clickedItemIdx]);
+        startActivity(intent);
 
     }
 
@@ -51,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // MainActivity
-// TODO (1) 리스트뷰 클릭했을때 반응 없는 이슈 해결하기
 // TODO (2) 임시 데이터 말고 API적용해서 실제 자료 가져오기
 // TODO (3) 가져온 데이터중에 포스터 url 참고,
 // TODO (4) 레이아웃 그리드뷰 말고 피카소 라이브러리 적용해서 바꾸기

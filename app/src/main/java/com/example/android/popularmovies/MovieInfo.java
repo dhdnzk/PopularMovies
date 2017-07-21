@@ -3,7 +3,7 @@ package com.example.android.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class MovieInfo implements Parcelable{
+class MovieInfo implements Parcelable {
 
     private String title;
     private String originalTitle;
@@ -24,15 +24,18 @@ class MovieInfo implements Parcelable{
     }
 
     private MovieInfo(Parcel in) {
+
         title = in.readString();
         originalTitle = in.readString();
         posterImageUrl = in.readString();
         plotSynopsisUrl = in.readString();
         userRating = in.readFloat();
         releaseDate = in.readString();
+
     }
 
     public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
+
         @Override
         public MovieInfo createFromParcel(Parcel in) {
             return new MovieInfo(in);
@@ -42,6 +45,7 @@ class MovieInfo implements Parcelable{
         public MovieInfo[] newArray(int size) {
             return new MovieInfo[size];
         }
+
     };
 
     @Override
@@ -51,16 +55,20 @@ class MovieInfo implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeString(title);
         parcel.writeString(originalTitle);
         parcel.writeString(posterImageUrl);
         parcel.writeString(plotSynopsisUrl);
         parcel.writeFloat(userRating);
         parcel.writeString(releaseDate);
+
     }
 
     public String getTitle() {
+
         return title;
+
     }
 
     public void setTitle(String title) {

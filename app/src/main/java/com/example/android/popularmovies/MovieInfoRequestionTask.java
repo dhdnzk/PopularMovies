@@ -7,7 +7,9 @@ class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
     private MovieListAdapter adapter;
 
     MovieInfoRequestionTask(MovieListAdapter adapter) {
+
         this.adapter = adapter;
+
     }
 
     @Override
@@ -23,4 +25,5 @@ class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
         adapter.setMovieInfoList(movieInfoList);
 
     }
+
 }
