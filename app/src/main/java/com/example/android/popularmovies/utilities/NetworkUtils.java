@@ -11,13 +11,9 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
+    public static String API_KEY = ApiKey.API_KEY;
     public static final String POSTER_BASIC_URL = "http://image.tmdb.org/t/p/";
-
     public static final String POSTER_SIZE = "w185";
-
-    public static String API_KEY;
-
-
     public static final String POPULAR_MOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
 
     public static URL buildPosterUrl(String posterPath) {
@@ -59,11 +55,19 @@ public class NetworkUtils {
 
             }
 
-        } finally {
+        }
+        catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+        finally {
 
             urlConnection.disconnect();
 
         }
+
+        return null;
 
     }
 

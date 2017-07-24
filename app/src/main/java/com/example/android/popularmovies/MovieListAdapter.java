@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.popularmovies.utilities.NetworkUtils;
+
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
 
     private MovieInfo[] movieInfoList;
@@ -76,7 +78,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         void bind(int position) {
 
-            imagePosterUrl.setText(movieInfoList[position].getPosterPath());
+            String posterImageUrl = NetworkUtils.POSTER_BASIC_URL +
+                    NetworkUtils.POSTER_SIZE +
+                    movieInfoList[position].getPosterPath();
+
+            imagePosterUrl.setText(posterImageUrl);
 
         }
 

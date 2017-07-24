@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
 import com.example.android.popularmovies.utilities.NetworkUtils;
@@ -10,12 +11,14 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]>{
+public class MovieInfoRequestingTask extends AsyncTask<String, Void, MovieInfo[]>{
 
+    private RecyclerView recyclerView;
     private MovieListAdapter adapter;
 
-    public MovieInfoRequestionTask(MovieListAdapter adapter) {
+    public MovieInfoRequestingTask(RecyclerView recyclerView, MovieListAdapter adapter) {
 
+        this.recyclerView = recyclerView;
         this.adapter = adapter;
 
     }
@@ -23,12 +26,13 @@ public class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]
     @Override
     protected MovieInfo[] doInBackground(String... strings) {
 
-        String respondedJsonString = null;
-        MovieInfo[] movieInfoList = new MovieInfo[0];
+        String targetUrl = strings[0];
+        String respondedJsonString;
+        MovieInfo[] movieInfoList = null;
 
         try {
 
-            respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(strings[0]));
+            respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(targetUrl));
             movieInfoList = MovieDBJsonUtils.getMovieInfoArrayFromJsonString(respondedJsonString);
 
         } catch (IOException | JSONException e) {
@@ -45,6 +49,7 @@ public class MovieInfoRequestionTask extends AsyncTask<String, Void, MovieInfo[]
     protected void onPostExecute(MovieInfo[] movieInfoList) {
 
         adapter.setMovieInfoList(movieInfoList);
+        recyclerView.setAdapter(adapter);
 
     }
 
