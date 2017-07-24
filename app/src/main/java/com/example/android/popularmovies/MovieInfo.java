@@ -224,7 +224,3 @@ public class MovieInfo implements Parcelable {
 //        The sort order can be by most popular, or by top rated
 //        Allow the user to tap on a movie poster and transition to a details screen with additional information such as:
 //        original title
-//        movie poster image thumbnail
-//        A plot synopsis (called overview in the api)
-//        user rating (called vote_average in the api)
-//        release date

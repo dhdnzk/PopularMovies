@@ -5,9 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.android.popularmovies.utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
 
@@ -64,13 +65,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     class MovieListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView imagePosterUrl;
+        ImageView posterImage;
 
         MovieListViewHolder(View itemView) {
 
             super(itemView);
 
-            imagePosterUrl = itemView.findViewById(R.id.tv_tmp_poster_url);
+            posterImage = itemView.findViewById(R.id.iv_posterImage);
 
             itemView.setOnClickListener(this);
 
@@ -82,7 +83,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                     NetworkUtils.POSTER_SIZE +
                     movieInfoList[position].getPosterPath();
 
-            imagePosterUrl.setText(posterImageUrl);
+            Picasso.with(itemView.getContext()).load(posterImageUrl).into(posterImage);
 
         }
 

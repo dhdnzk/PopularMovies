@@ -1,8 +1,10 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.AsyncTaskClasses;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.android.popularmovies.MovieInfo;
+import com.example.android.popularmovies.MovieListAdapter;
 import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
 import com.example.android.popularmovies.utilities.NetworkUtils;
 

@@ -11,25 +11,10 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    public static String API_KEY = ApiKey.API_KEY;
+    private static final String API_KEY = ApiKey.API_KEY;
     public static final String POSTER_BASIC_URL = "http://image.tmdb.org/t/p/";
     public static final String POSTER_SIZE = "w185";
     public static final String POPULAR_MOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
-
-    public static URL buildPosterUrl(String posterPath) {
-
-        Uri targetUri = Uri.parse(POSTER_BASIC_URL).buildUpon().appendPath(posterPath).build();
-
-        URL targetUrl = null;
-
-        try {
-            targetUrl = new URL(targetUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return targetUrl;
-    }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
 
