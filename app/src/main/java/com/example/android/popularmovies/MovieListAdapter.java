@@ -2,6 +2,7 @@ package com.example.android.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     private MovieInfo[] movieInfoList;
     private final RecyclerViewClickListener recyclerViewClickListener;
+    private final DisplayMetrics displayMetrics;
 
-    public MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener) {
+
+    public MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener, DisplayMetrics displayMetrics) {
 
         this.movieInfoList = null;
 
         this.recyclerViewClickListener = recyclerViewClickListener;
+
+        this.displayMetrics = displayMetrics;
 
     }
 
@@ -83,7 +88,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                     NetworkUtils.POSTER_SIZE +
                     movieInfoList[position].getPosterPath();
 
-            Picasso.with(itemView.getContext()).load(posterImageUrl).into(posterImage);
+            Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2).centerCrop().into(posterImage);
 
         }
 

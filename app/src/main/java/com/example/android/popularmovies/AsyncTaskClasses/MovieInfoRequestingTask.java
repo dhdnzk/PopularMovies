@@ -2,6 +2,7 @@ package com.example.android.popularmovies.AsyncTaskClasses;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.android.popularmovies.MovieInfo;
 import com.example.android.popularmovies.MovieListAdapter;

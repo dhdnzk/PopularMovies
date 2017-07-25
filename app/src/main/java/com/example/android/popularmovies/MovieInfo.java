@@ -221,6 +221,6 @@ public class MovieInfo implements Parcelable {
 //    Your app will:
 //        Upon launch, present the user with an grid arrangement of movie posters.
 //        Allow your user to change sort order via a setting:
-//        The sort order can be by most popular, or by top rated
+//        The sort order can be by most top_rated, or by top rated
 //        Allow the user to tap on a movie poster and transition to a details screen with additional information such as:
 //        original title
