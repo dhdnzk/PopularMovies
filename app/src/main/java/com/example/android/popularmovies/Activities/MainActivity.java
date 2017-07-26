@@ -3,12 +3,16 @@ package com.example.android.popularmovies.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.android.popularmovies.MovieInfo;
 import com.example.android.popularmovies.MovieListAdapter;
@@ -25,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     private RecyclerView movieListRecyclerView;
     private MovieListAdapter movieListAdapter;
+    private ConstraintLayout errorPageLayout;
+    private ImageView refreshButton;
+    private ProgressBar reloadingProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,19 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         movieListRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
         movieListRecyclerView.setLayoutManager(layoutManager);
         movieListRecyclerView.setHasFixedSize(true);
+
+        errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
+        refreshButton = (ImageView) findViewById(R.id.iv_refresh);
+
+        reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                loadPage(NetworkUtils.CURRENT_REQUESTED_URL);
+
+            }
+        });
 
         loadPage(NetworkUtils.POPULAR_MOVIE_URL);
 
@@ -83,19 +104,24 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         return true;
     }
 
-    private void loadPage(String requestionType) {
+    private void loadPage(String requestingUrlString) {
 
         movieListAdapter.setMovieInfoList(null);
 
-        switch (requestionType) {
+        switch (requestingUrlString) {
 
             case NetworkUtils.TOP_RATED_MOVIE_URL:
+                NetworkUtils.CURRENT_REQUESTED_URL = NetworkUtils.TOP_RATED_MOVIE_URL;
                 new MovieInfoRequestingTask().execute(NetworkUtils.TOP_RATED_MOVIE_URL);
                 break;
 
             case NetworkUtils.POPULAR_MOVIE_URL:
-            default:
+                NetworkUtils.CURRENT_REQUESTED_URL = NetworkUtils.POPULAR_MOVIE_URL;
                 new MovieInfoRequestingTask().execute(NetworkUtils.POPULAR_MOVIE_URL);
+                break;
+
+            default:
+                new MovieInfoRequestingTask().execute(NetworkUtils.CURRENT_REQUESTED_URL);
                 break;
 
         }
@@ -103,6 +129,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     private class MovieInfoRequestingTask extends AsyncTask<String, Void, MovieInfo[]> {
+
+        @Override
+        protected void onPreExecute() {
+
+            movieListRecyclerView.setVisibility(View.INVISIBLE);
+            errorPageLayout.setVisibility(View.INVISIBLE);
+            reloadingProgressBar.setVisibility(View.VISIBLE);
+
+        }
 
         @Override
         protected MovieInfo[] doInBackground(String... strings) {
@@ -129,8 +164,23 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         @Override
         protected void onPostExecute(MovieInfo[] movieInfoList) {
 
+            if(movieInfoList == null) {
+
+                movieListRecyclerView.setVisibility(View.INVISIBLE);
+                reloadingProgressBar.setVisibility(View.INVISIBLE);
+                errorPageLayout.setVisibility(View.VISIBLE);
+
+                return;
+
+            }
+
+            movieListRecyclerView.setVisibility(View.VISIBLE);
+            reloadingProgressBar.setVisibility(View.INVISIBLE);
+            errorPageLayout.setVisibility(View.INVISIBLE);
+
             movieListAdapter.setMovieInfoList(movieInfoList);
             movieListRecyclerView.setAdapter(movieListAdapter);
+
 
 
         }
@@ -140,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // polishing & bug fix
-// TODO: 오프라인 상태일때 처리
 // TODO: 위로 당기면 새로고침
 // TODO: 고무줄 효과 적용해서 그림이 자동으로 페이지 중앙으로 오도록
 // TODO: 메인 페이지 가로로 했을때 오른쪽으로 4개 나열되도록 레이아웃 수정

@@ -13,6 +13,7 @@ public class NetworkUtils {
     public static final String POSTER_SIZE = "w185";
     public static final String POPULAR_MOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
     public static final String TOP_RATED_MOVIE_URL = "http://api.themoviedb.org/3/movie/top_rated?api_key=" + API_KEY;
+    public static String CURRENT_REQUESTED_URL = POPULAR_MOVIE_URL;
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
 

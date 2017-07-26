@@ -88,7 +88,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                     NetworkUtils.POSTER_SIZE +
                     movieInfoList[position].getPosterPath();
 
-            Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2).centerCrop().into(posterImage);
+            Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2 - 2, displayMetrics.heightPixels / 2 - 2).centerCrop().into(posterImage);
 
         }
 

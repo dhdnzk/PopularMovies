@@ -2,6 +2,7 @@ package com.example.android.popularmovies;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 public class MovieInfo implements Parcelable {
 
