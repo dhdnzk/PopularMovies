@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PopularMovies</string>
+    <string name="app_name">Popular movies</string>
     <string name="set_as_rate">set as rate</string>
     <string name="set_as_popularity">set as popularity</string>
     <string name="network_error_message">Please try again.\nUnstable network connection.</string>

@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context="com.example.android.popularmovies.activities.MovieDetailActivity">
 
         <TextView
@@ -50,6 +50,7 @@
 
         <TextView
             android:id="@+id/tv_running_time"
+            android:visibility="invisible"
             android:layout_width="85dp"
             android:layout_height="34dp"
             android:layout_marginLeft="13dp"

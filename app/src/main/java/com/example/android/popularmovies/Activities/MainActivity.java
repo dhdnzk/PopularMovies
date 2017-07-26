@@ -30,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private RecyclerView movieListRecyclerView;
     private MovieListAdapter movieListAdapter;
     private ConstraintLayout errorPageLayout;
-    private ImageView refreshButton;
     private ProgressBar reloadingProgressBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         movieListRecyclerView.setHasFixedSize(true);
 
         errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
-        refreshButton = (ImageView) findViewById(R.id.iv_refresh);
+        ImageView refreshButton = (ImageView) findViewById(R.id.iv_refresh);
 
         reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                loadPage(NetworkUtils.CURRENT_REQUESTED_URL);
+                loadPage(NetworkUtils.LAST_REQUESTED_URL);
 
             }
         });
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
+        
         return true;
 
     }
@@ -111,17 +109,17 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         switch (requestingUrlString) {
 
             case NetworkUtils.TOP_RATED_MOVIE_URL:
-                NetworkUtils.CURRENT_REQUESTED_URL = NetworkUtils.TOP_RATED_MOVIE_URL;
+                NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.TOP_RATED_MOVIE_URL;
                 new MovieInfoRequestingTask().execute(NetworkUtils.TOP_RATED_MOVIE_URL);
                 break;
 
             case NetworkUtils.POPULAR_MOVIE_URL:
-                NetworkUtils.CURRENT_REQUESTED_URL = NetworkUtils.POPULAR_MOVIE_URL;
+                NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.POPULAR_MOVIE_URL;
                 new MovieInfoRequestingTask().execute(NetworkUtils.POPULAR_MOVIE_URL);
                 break;
 
             default:
-                new MovieInfoRequestingTask().execute(NetworkUtils.CURRENT_REQUESTED_URL);
+                new MovieInfoRequestingTask().execute(NetworkUtils.LAST_REQUESTED_URL);
                 break;
 
         }
@@ -190,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // polishing & bug fix
+// TODO: 액티비티별로 타이틀 이름 바꾸기
+// TODO: 영화 상세 페이지에서 back 텍스트 화살표로 바꾸고 위치 수정
 // TODO: 위로 당기면 새로고침
 // TODO: 고무줄 효과 적용해서 그림이 자동으로 페이지 중앙으로 오도록
 // TODO: 메인 페이지 가로로 했을때 오른쪽으로 4개 나열되도록 레이아웃 수정

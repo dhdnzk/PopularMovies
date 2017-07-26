@@ -1,7 +1,9 @@
 package com.example.android.popularmovies.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +17,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private TextView titleTextview;
     private TextView releaseDayTextview;
-    private TextView runningTimeTextview;
     private TextView ratingTextview;
     private TextView overViewTextview;
     private ImageView posterImageView;
@@ -28,6 +29,27 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         viewIdMapping();
         loadPage();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.it_movie_detail_back:
+
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -55,7 +77,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         titleTextview = (TextView) findViewById(R.id.tv_movie_title);
         releaseDayTextview = (TextView) findViewById(R.id.tv_release_day);
-        runningTimeTextview = (TextView) findViewById(R.id.tv_running_time);
         ratingTextview = (TextView) findViewById(R.id.tv_rating);
         overViewTextview = (TextView) findViewById(R.id.tv_overview);
         posterImageView = (ImageView) findViewById(R.id.iv_posterImage);
