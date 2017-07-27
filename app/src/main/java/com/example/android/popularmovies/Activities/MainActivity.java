@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         movieListRecyclerView.setHasFixedSize(true);
 
         errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
+
         ImageView refreshButton = (ImageView) findViewById(R.id.iv_refresh);
 
         reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             }
         });
 
-        loadPage(NetworkUtils.POPULAR_MOVIE_URL);
+        loadPage(NetworkUtils.LAST_REQUESTED_URL);
 
     }
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        
+
         return true;
 
     }
@@ -179,8 +180,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             movieListAdapter.setMovieInfoList(movieInfoList);
             movieListRecyclerView.setAdapter(movieListAdapter);
 
-
-
         }
 
     }
@@ -188,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // polishing & bug fix
-// TODO: 액티비티별로 타이틀 이름 바꾸기
 // TODO: 영화 상세 페이지에서 back 텍스트 화살표로 바꾸고 위치 수정
 // TODO: 위로 당기면 새로고침
 // TODO: 고무줄 효과 적용해서 그림이 자동으로 페이지 중앙으로 오도록
