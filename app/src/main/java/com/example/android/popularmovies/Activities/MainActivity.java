@@ -1,9 +1,11 @@
 package com.example.android.popularmovies.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,12 +27,15 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener {
+public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<MovieInfo[]> {
 
     private RecyclerView movieListRecyclerView;
     private MovieListAdapter movieListAdapter;
     private ConstraintLayout errorPageLayout;
     private ProgressBar reloadingProgressBar;
+
+    private static String TARGET_URL_BUNDLE_KEY = "targetUrl";
+    private static final int QUERY_REQUESTING_LOADER_ID = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
 
         ImageView refreshButton = (ImageView) findViewById(R.id.iv_refresh);
+
+        getSupportLoaderManager().initLoader(QUERY_REQUESTING_LOADER_ID, null, this);
 
         reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -108,79 +115,125 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         movieListAdapter.setMovieInfoList(null);
 
         switch (requestingUrlString) {
-
             case NetworkUtils.TOP_RATED_MOVIE_URL:
                 NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.TOP_RATED_MOVIE_URL;
-                new MovieInfoRequestingTask().execute(NetworkUtils.TOP_RATED_MOVIE_URL);
                 break;
 
             case NetworkUtils.POPULAR_MOVIE_URL:
                 NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.POPULAR_MOVIE_URL;
-                new MovieInfoRequestingTask().execute(NetworkUtils.POPULAR_MOVIE_URL);
                 break;
 
             default:
-                new MovieInfoRequestingTask().execute(NetworkUtils.LAST_REQUESTED_URL);
                 break;
 
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString(TARGET_URL_BUNDLE_KEY, NetworkUtils.LAST_REQUESTED_URL);
+
+        LoaderManager loaderManager= getSupportLoaderManager();
+        Loader loader = loaderManager.getLoader(QUERY_REQUESTING_LOADER_ID);
+
+        if(loader == null) {
+            loaderManager.initLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
+        }
+        else {
+            loaderManager.restartLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
         }
 
     }
 
-    private class MovieInfoRequestingTask extends AsyncTask<String, Void, MovieInfo[]> {
+    @Override
+    public Loader<MovieInfo[]> onCreateLoader(int id, final Bundle args) {
 
-        @Override
-        protected void onPreExecute() {
+        return new AsyncTaskLoader<MovieInfo[]>(this) {
 
-            movieListRecyclerView.setVisibility(View.INVISIBLE);
-            errorPageLayout.setVisibility(View.INVISIBLE);
-            reloadingProgressBar.setVisibility(View.VISIBLE);
+            MovieInfo[] movieInfoList;
 
-        }
-
-        @Override
-        protected MovieInfo[] doInBackground(String... strings) {
-
-            String targetUrl = strings[0];
-            String respondedJsonString;
-            MovieInfo[] movieInfoList = null;
-
-            try {
-
-                respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(targetUrl));
-                movieInfoList = MovieDBJsonUtils.getMovieInfoArrayFromJsonString(respondedJsonString);
-
-            } catch (IOException | JSONException e) {
-
-                e.printStackTrace();
-
-            }
-
-            return movieInfoList;
-
-        }
-
-        @Override
-        protected void onPostExecute(MovieInfo[] movieInfoList) {
-
-            if(movieInfoList == null) {
+            @Override
+            protected void onStartLoading() {
 
                 movieListRecyclerView.setVisibility(View.INVISIBLE);
-                reloadingProgressBar.setVisibility(View.INVISIBLE);
-                errorPageLayout.setVisibility(View.VISIBLE);
+                errorPageLayout.setVisibility(View.INVISIBLE);
+                reloadingProgressBar.setVisibility(View.VISIBLE);
 
-                return;
+                if(movieInfoList != null) {
+
+                    deliverResult(movieInfoList);
+
+                }
+
+                else {
+
+                    forceLoad();
+
+                }
 
             }
 
-            movieListRecyclerView.setVisibility(View.VISIBLE);
-            reloadingProgressBar.setVisibility(View.INVISIBLE);
-            errorPageLayout.setVisibility(View.INVISIBLE);
+            @Override
+            public MovieInfo[] loadInBackground() {
 
-            movieListAdapter.setMovieInfoList(movieInfoList);
-            movieListRecyclerView.setAdapter(movieListAdapter);
+                String targetUrl = args.getString(TARGET_URL_BUNDLE_KEY);
+                String respondedJsonString;
+                MovieInfo[] movieInfoList = null;
+
+                try {
+
+                    respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(targetUrl));
+                    movieInfoList = MovieDBJsonUtils.getMovieInfoArrayFromJsonString(respondedJsonString);
+
+                } catch (IOException | JSONException e) {
+
+                    e.printStackTrace();
+
+                }
+
+                return movieInfoList;
+
+            }
+
+            @Override
+            public void deliverResult(MovieInfo[] data) {
+                movieInfoList = data;
+                super.deliverResult(data);
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<MovieInfo[]> loader, MovieInfo[] data) {
+
+        if(data == null) {
+
+            showErrorMessage();
+            return;
 
         }
+
+        movieListAdapter.setMovieInfoList(data);
+        movieListRecyclerView.setAdapter(movieListAdapter);
+        showLoadedPage();
+    }
+
+    private void showErrorMessage() {
+
+        movieListRecyclerView.setVisibility(View.INVISIBLE);
+        reloadingProgressBar.setVisibility(View.INVISIBLE);
+        errorPageLayout.setVisibility(View.VISIBLE);
+
+    }
+
+    private void showLoadedPage() {
+
+        movieListRecyclerView.setVisibility(View.VISIBLE);
+        reloadingProgressBar.setVisibility(View.INVISIBLE);
+        errorPageLayout.setVisibility(View.INVISIBLE);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<MovieInfo[]> loader) {
 
     }
 
