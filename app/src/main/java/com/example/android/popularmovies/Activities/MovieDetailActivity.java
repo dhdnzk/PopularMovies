@@ -1,6 +1,8 @@
 package com.example.android.popularmovies.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,26 +29,25 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar != null) {
+            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+        }
+
         viewIdMapping();
         loadPage();
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
-
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
-            case R.id.it_movie_detail_back:
-
-                finish();
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     private void loadPage(String requestingUrlString) {
 
+        showProgressBar();
+
         movieListAdapter.setMovieInfoList(null);
 
         switch (requestingUrlString) {
@@ -153,10 +155,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             @Override
             protected void onStartLoading() {
 
-                movieListRecyclerView.setVisibility(View.INVISIBLE);
-                errorPageLayout.setVisibility(View.INVISIBLE);
-                reloadingProgressBar.setVisibility(View.VISIBLE);
-
                 if(movieInfoList != null) {
 
                     deliverResult(movieInfoList);
@@ -165,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
                 else {
 
+                    movieListRecyclerView.setVisibility(View.INVISIBLE);
                     forceLoad();
 
                 }
@@ -195,10 +194,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
             @Override
             public void deliverResult(MovieInfo[] data) {
+
                 movieInfoList = data;
+
                 super.deliverResult(data);
+
             }
+
         };
+
     }
 
     @Override
@@ -207,13 +211,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         if(data == null) {
 
             showErrorMessage();
-            return;
+
+        } else {
+
+            movieListAdapter.setMovieInfoList(data);
+            movieListRecyclerView.setAdapter(movieListAdapter);
+            showLoadedPage();
 
         }
 
-        movieListAdapter.setMovieInfoList(data);
-        movieListRecyclerView.setAdapter(movieListAdapter);
-        showLoadedPage();
     }
 
     private void showErrorMessage() {
@@ -232,9 +238,16 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     }
 
+    private void showProgressBar() {
+
+        movieListRecyclerView.setVisibility(View.INVISIBLE);
+        errorPageLayout.setVisibility(View.INVISIBLE);
+        reloadingProgressBar.setVisibility(View.VISIBLE);
+
+    }
+
     @Override
     public void onLoaderReset(Loader<MovieInfo[]> loader) {
-
     }
 
 }
