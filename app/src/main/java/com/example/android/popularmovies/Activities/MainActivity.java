@@ -1,6 +1,7 @@
 package com.example.android.popularmovies.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.LoaderManager;
@@ -34,22 +35,39 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private ConstraintLayout errorPageLayout;
     private ProgressBar reloadingProgressBar;
 
-    private static String TARGET_URL_BUNDLE_KEY = "targetUrl";
+    private static final String TARGET_URL_BUNDLE_KEY = "targetUrl";
     private static final int QUERY_REQUESTING_LOADER_ID = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager;
+
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            layoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+
+        }
+        else {
+
+            layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+
+        }
+
         DisplayMetrics metrics = new DisplayMetrics();
+
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        movieListAdapter = new MovieListAdapter(this, metrics);
+
+        movieListAdapter = new MovieListAdapter(this, this, metrics);
 
         movieListRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
+
         movieListRecyclerView.setLayoutManager(layoutManager);
+
         movieListRecyclerView.setHasFixedSize(true);
 
         errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
@@ -59,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         getSupportLoaderManager().initLoader(QUERY_REQUESTING_LOADER_ID, null, this);
 
         reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,9 +272,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // polishing & bug fix
-// TODO: 영화 상세 페이지에서 back 텍스트 화살표로 바꾸고 위치 수정
 // TODO: 위로 당기면 새로고침
 // TODO: 고무줄 효과 적용해서 그림이 자동으로 페이지 중앙으로 오도록
 // TODO: 메인 페이지 가로로 했을때 오른쪽으로 4개 나열되도록 레이아웃 수정
-// TODO: 영화 디테일 페이지 가로로 했을때 영화 오버뷰 오른쪽으로 빠지도록 레이아웃 수정
 // TODO: 리사이클러 뷰 드래그 빠르게 했을때 버벅거림 수정

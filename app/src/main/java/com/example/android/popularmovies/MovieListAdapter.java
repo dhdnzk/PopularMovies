@@ -1,10 +1,10 @@
 package com.example.android.popularmovies;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,15 +17,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private MovieInfo[] movieInfoList;
     private final RecyclerViewClickListener recyclerViewClickListener;
     private final DisplayMetrics displayMetrics;
+    private final Context context;
 
 
-    public MovieListAdapter(RecyclerViewClickListener recyclerViewClickListener, DisplayMetrics displayMetrics) {
+    public MovieListAdapter(Context context, RecyclerViewClickListener recyclerViewClickListener, DisplayMetrics displayMetrics) {
 
         this.movieInfoList = null;
 
         this.recyclerViewClickListener = recyclerViewClickListener;
 
         this.displayMetrics = displayMetrics;
+
+        this.context = context;
 
     }
 
@@ -71,7 +74,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     class MovieListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView posterImage;
+        final ImageView posterImage;
 
         MovieListViewHolder(View itemView) {
 
@@ -89,7 +92,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                     NetworkUtils.POSTER_SIZE +
                     movieInfoList[position].getPosterPath();
 
-            Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2 - 2, displayMetrics.heightPixels / 2 - 2).centerCrop().into(posterImage);
+            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2 - 2, displayMetrics.heightPixels / 2 - 2).centerCrop().into(posterImage);
+
+            }else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 3 - 2, displayMetrics.heightPixels - 2).centerCrop().into(posterImage);
+
+            }
+
 
         }
 
