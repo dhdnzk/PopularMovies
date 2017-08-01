@@ -9,6 +9,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         }
         else {
 
-            layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+//            layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         }
 
@@ -272,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 }
 
 // polishing & bug fix
-// TODO: 위로 당기면 새로고침
-// TODO: 고무줄 효과 적용해서 그림이 자동으로 페이지 중앙으로 오도록
-// TODO: 메인 페이지 가로로 했을때 오른쪽으로 4개 나열되도록 레이아웃 수정
 // TODO: 리사이클러 뷰 드래그 빠르게 했을때 버벅거림 수정
+// TODO: 메인 페이지 가로 모드에서 리스트 뷰 아이템들 사이에 흰색 공백 없애기
+// TODO: 메인 페이지 가로 모드에서 로딩 했을때 런타임 에러 수정
