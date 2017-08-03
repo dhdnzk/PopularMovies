@@ -32,11 +32,15 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<MovieInfo[]> {
 
     private RecyclerView movieListRecyclerView;
+
     private MovieListAdapter movieListAdapter;
+
     private ConstraintLayout errorPageLayout;
+
     private ProgressBar reloadingProgressBar;
 
     private static final String TARGET_URL_BUNDLE_KEY = "targetUrl";
+
     private static final int QUERY_REQUESTING_LOADER_ID = 1001;
 
     @Override
@@ -55,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         }
         else {
 
-//            layoutManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         }
@@ -97,7 +100,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     public void onListItemClicked(int clickedItemIdx) {
 
         Intent intent = new Intent(this, MovieDetailActivity.class);
+
         intent.putExtra("movieInfo", movieListAdapter.getMovieInfoList()[clickedItemIdx]);
+
         startActivity(intent);
 
     }
@@ -117,15 +122,21 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         switch (item.getItemId()) {
 
             case R.id.it_main_set_as_rate:
+
                 loadPage(NetworkUtils.TOP_RATED_MOVIE_URL);
+
                 break;
 
             case R.id.it_main_set_as_popularity:
+
                 loadPage(NetworkUtils.POPULAR_MOVIE_URL);
+
                 break;
 
             default:
+
                 break;
+
         }
 
         return true;
@@ -138,30 +149,43 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         movieListAdapter.setMovieInfoList(null);
 
         switch (requestingUrlString) {
+
             case NetworkUtils.TOP_RATED_MOVIE_URL:
+
                 NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.TOP_RATED_MOVIE_URL;
+
                 break;
 
             case NetworkUtils.POPULAR_MOVIE_URL:
+
                 NetworkUtils.LAST_REQUESTED_URL = NetworkUtils.POPULAR_MOVIE_URL;
+
                 break;
 
             default:
+
                 break;
 
         }
 
         Bundle bundle = new Bundle();
+
         bundle.putString(TARGET_URL_BUNDLE_KEY, NetworkUtils.LAST_REQUESTED_URL);
 
         LoaderManager loaderManager= getSupportLoaderManager();
+
         Loader loader = loaderManager.getLoader(QUERY_REQUESTING_LOADER_ID);
 
         if(loader == null) {
+
             loaderManager.initLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
+
         }
+
         else {
+
             loaderManager.restartLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
+
         }
 
     }
@@ -185,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
                 else {
 
                     movieListRecyclerView.setVisibility(View.INVISIBLE);
+
                     forceLoad();
 
                 }
@@ -195,12 +220,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             public MovieInfo[] loadInBackground() {
 
                 String targetUrl = args.getString(TARGET_URL_BUNDLE_KEY);
+
                 String respondedJsonString;
+
                 MovieInfo[] movieInfoList = null;
 
                 try {
 
                     respondedJsonString = NetworkUtils.getResponseFromHttpUrl(new URL(targetUrl));
+
                     movieInfoList = MovieDBJsonUtils.getMovieInfoArrayFromJsonString(respondedJsonString);
 
                 } catch (IOException | JSONException e) {
@@ -236,7 +264,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         } else {
 
             movieListAdapter.setMovieInfoList(data);
+
             movieListRecyclerView.setAdapter(movieListAdapter);
+
             showLoadedPage();
 
         }
@@ -246,7 +276,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void showErrorMessage() {
 
         movieListRecyclerView.setVisibility(View.INVISIBLE);
+
         reloadingProgressBar.setVisibility(View.INVISIBLE);
+
         errorPageLayout.setVisibility(View.VISIBLE);
 
     }
@@ -254,7 +286,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void showLoadedPage() {
 
         movieListRecyclerView.setVisibility(View.VISIBLE);
+
         reloadingProgressBar.setVisibility(View.INVISIBLE);
+
         errorPageLayout.setVisibility(View.INVISIBLE);
 
     }
@@ -262,13 +296,16 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void showProgressBar() {
 
         movieListRecyclerView.setVisibility(View.INVISIBLE);
+
         errorPageLayout.setVisibility(View.INVISIBLE);
+
         reloadingProgressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void onLoaderReset(Loader<MovieInfo[]> loader) {
+        
     }
 
 }

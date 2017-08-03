@@ -17,24 +17,34 @@ import com.squareup.picasso.Picasso;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private TextView titleTextview;
+
     private TextView releaseDayTextview;
+
     private TextView ratingTextview;
+
     private TextView overViewTextview;
+
     private ImageView posterImageView;
+
     private Button bookmarkCheckingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_movie_detail);
 
         ActionBar actionBar = getSupportActionBar();
 
         if(actionBar != null) {
+
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
         }
 
         viewIdMapping();
+
         loadPage();
 
     }
@@ -45,8 +55,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.home:
+
                 NavUtils.navigateUpFromSameTask(this);
+
                 break;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,10 +89,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void viewIdMapping() {
 
         titleTextview = (TextView) findViewById(R.id.tv_movie_title);
+
         releaseDayTextview = (TextView) findViewById(R.id.tv_release_day);
+
         ratingTextview = (TextView) findViewById(R.id.tv_rating);
+
         overViewTextview = (TextView) findViewById(R.id.tv_overview);
+
         posterImageView = (ImageView) findViewById(R.id.iv_posterImage);
+
         bookmarkCheckingButton = (Button) findViewById(R.id.bt_mark_as_favorite);
 
     }
