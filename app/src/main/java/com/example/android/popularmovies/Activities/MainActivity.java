@@ -29,18 +29,14 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements MovieListAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<MovieInfo[]> {
+public class MainActivity extends AppCompatActivity
+        implements MovieListAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<MovieInfo[]> {
 
     private RecyclerView movieListRecyclerView;
-
     private MovieListAdapter movieListAdapter;
-
     private ConstraintLayout errorPageLayout;
-
     private ProgressBar reloadingProgressBar;
-
     private static final String TARGET_URL_BUNDLE_KEY = "targetUrl";
-
     private static final int QUERY_REQUESTING_LOADER_ID = 1001;
 
     @Override
@@ -142,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         }
 
         return true;
+
     }
 
     private void loadPage(String requestingUrlString) {

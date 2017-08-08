@@ -55,16 +55,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_bias="0.236" />
 
-        <TextView
-            android:id="@+id/tv_running_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:visibility="invisible"
-            tools:text="running time"
-            tools:layout_editor_absoluteY="187dp"
-            tools:layout_editor_absoluteX="210dp" />
-
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="20sp"
             android:layout_height="20sp"
@@ -88,16 +78,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
             android:layout_marginBottom="0dp"
             app:layout_constraintVertical_bias="0.857" />
-
-        <Button
-            android:id="@+id/bt_mark_as_favorite"
-            android:layout_width="89dp"
-            android:layout_height="48dp"
-            android:textSize="22sp"
-            android:visibility="invisible"
-            tools:text="Mark as favorite"
-            tools:layout_editor_absoluteX="210dp"
-            tools:layout_editor_absoluteY="187dp" />
 
         <TextView
             android:id="@+id/tv_overview"

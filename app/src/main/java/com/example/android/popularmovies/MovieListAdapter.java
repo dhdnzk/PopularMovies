@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.android.popularmovies.utilities.NetworkUtils;
+
 import com.squareup.picasso.Picasso;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
@@ -50,16 +51,20 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     public void onBindViewHolder(MovieListViewHolder holder, int position) {
 
         holder.bind(position);
+
     }
 
     @Override
     public int getItemCount() {
 
         if(movieInfoList == null) {
+
             return 0;
+
         }
 
         return movieInfoList.length;
+
     }
 
     public void setMovieInfoList(MovieInfo[] movieInfoList) {
@@ -90,17 +95,27 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         void bind(int position) {
 
-            String posterImageUrl = NetworkUtils.POSTER_BASIC_URL +
+            String posterImageUrl =
+                    NetworkUtils.POSTER_BASIC_URL +
                     NetworkUtils.POSTER_SIZE +
                     movieInfoList[position].getPosterPath();
 
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 
-                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2).centerCrop().into(posterImage);
+                Picasso.with(itemView.getContext())
+                        .load(posterImageUrl)
+                        .resize(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2)
+                        .centerCrop()
+                        .into(posterImage);
 
-            }else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            }
+            else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 4, displayMetrics.heightPixels).centerCrop().into(posterImage);
+                Picasso.with(itemView.getContext())
+                        .load(posterImageUrl)
+                        .resize(displayMetrics.widthPixels / 4, displayMetrics.heightPixels)
+                        .centerCrop()
+                        .into(posterImage);
 
             }
 

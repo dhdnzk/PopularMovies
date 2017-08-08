@@ -71,24 +71,33 @@ public class MovieInfo implements Parcelable {
 
 
     public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
+
         @Override
         public MovieInfo createFromParcel(Parcel in) {
+
             return new MovieInfo(in);
+
         }
 
         @Override
         public MovieInfo[] newArray(int size) {
+
             return new MovieInfo[size];
+
         }
+
     };
 
     @Override
     public int describeContents() {
+
         return 0;
+
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeInt(voteCount);
         parcel.writeInt(id);
         parcel.writeByte((byte) (video ? 1 : 0));
@@ -103,33 +112,37 @@ public class MovieInfo implements Parcelable {
         parcel.writeByte((byte) (adult ? 1 : 0));
         parcel.writeString(overview);
         parcel.writeString(releaseDate);
+
     }
 
     public double getVoteAverage() {
+
         return voteAverage;
+
     }
 
     public String getTitle() {
+
         return title;
+
     }
 
     public String getPosterPath() {
+
         return posterPath;
+
     }
 
     public String getOverview() {
+
         return overview;
+
     }
 
     public String getReleaseDate() {
+
         return releaseDate;
+
     }
 
 }
-
-//    Your app will:
-//        Upon launch, present the user with an grid arrangement of movie posters.
-//        Allow your user to change sort order via a setting:
-//        The sort order can be by most top_rated, or by top rated
-//        Allow the user to tap on a movie poster and transition to a details screen with additional information such as:
-//        original title
