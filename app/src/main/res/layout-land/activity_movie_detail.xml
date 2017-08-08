@@ -15,103 +15,109 @@
 
         <TextView
             android:id="@+id/tv_movie_title"
+            android:background="#333333"
+            android:textColor="#ffffff"
             android:layout_width="0dp"
-            android:layout_height="124dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="25dp"
-            android:textSize="60sp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="35sp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Title"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            tools:text="Title" />
 
         <ImageView
             android:id="@+id/iv_posterImage"
-            android:layout_width="175dp"
-            android:layout_height="254dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_title"
+            android:layout_width="183dp"
+            android:layout_height="234dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="22dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
             android:src="@android:mipmap/sym_def_app_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_marginLeft="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/tv_release_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:layout_marginLeft="33dp"
-            app:layout_constraintLeft_toRightOf="@+id/iv_posterImage"
-            android:layout_marginTop="36dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
             tools:text="release day"
-            android:layout_marginStart="13dp" />
+            app:layout_constraintTop_toTopOf="@+id/iv_posterImage"
+            app:layout_constraintLeft_toRightOf="@+id/iv_posterImage"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/star"
+            android:id="@+id/appCompatImageView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_release_day"
+            android:layout_marginTop="42dp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_release_day" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            tools:text="rating"
+            android:layout_marginLeft="7dp"
+            app:layout_constraintLeft_toRightOf="@+id/appCompatImageView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+            app:layout_constraintVertical_bias="0.857"
+            android:layout_marginStart="7dp" />
 
         <TextView
             android:id="@+id/tv_running_time"
             android:visibility="invisible"
             android:textSize="22sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            app:layout_constraintLeft_toRightOf="@+id/iv_posterImage"
-            app:layout_constraintTop_toBottomOf="@+id/tv_release_day"
+            android:layout_width="136dp"
+            android:layout_height="26dp"
             tools:text="running time"
-            android:layout_marginStart="13dp" />
-
-        <TextView
-            android:id="@+id/tv_rating"
-            android:layout_width="63dp"
-            android:layout_height="23dp"
-            android:layout_marginLeft="13dp"
-            android:textSize="22sp"
-            app:layout_constraintLeft_toRightOf="@+id/iv_posterImage"
-            app:layout_constraintTop_toBottomOf="@+id/tv_running_time"
-            tools:text="rating"
-            android:layout_marginStart="13dp" />
+            tools:layout_editor_absoluteY="137dp"
+            tools:layout_editor_absoluteX="371dp" />
 
         <Button
             android:id="@+id/bt_mark_as_favorite"
             android:visibility="invisible"
-            android:layout_width="89dp"
-            android:layout_height="48dp"
-            android:textSize="10sp"
-            android:layout_marginLeft="56dp"
-            app:layout_constraintLeft_toRightOf="@+id/iv_posterImage"
-            android:layout_marginTop="67dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:text="Mark as favorite"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_posterImage"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="13dp"
-            app:layout_constraintVertical_bias="0.238" />
+            tools:layout_editor_absoluteY="180dp"
+            tools:layout_editor_absoluteX="371dp" />
 
         <TextView
             android:id="@+id/tv_overview"
-            android:layout_width="546dp"
-            android:layout_height="261dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:textSize="22sp"
             tools:text="overview"
+            android:layout_marginStart="20dp"
             app:layout_constraintLeft_toRightOf="@+id/tv_release_day"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="8dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginEnd="8dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toTopOf="@+id/iv_posterImage"
+            android:layout_marginTop="-24dp" />
 
     </android.support.constraint.ConstraintLayout>
 
