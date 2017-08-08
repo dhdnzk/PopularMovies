@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
         movieListRecyclerView.setHasFixedSize(true);
 
+        movieListRecyclerView.setItemViewCacheSize(20);
+
         errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
 
         ImageView refreshButton = (ImageView) findViewById(R.id.iv_refresh);
@@ -145,8 +147,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void loadPage(String requestingUrlString) {
 
         showProgressBar();
-
-        movieListAdapter.setMovieInfoList(null);
 
         switch (requestingUrlString) {
 
@@ -305,12 +305,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     @Override
     public void onLoaderReset(Loader<MovieInfo[]> loader) {
-        
+
     }
 
 }
 
-// polishing & bug fix
-// TODO: 리사이클러 뷰 드래그 빠르게 했을때 버벅거림 수정
-// TODO: 메인 페이지 가로 모드에서 리스트 뷰 아이템들 사이에 흰색 공백 없애기
-// TODO: 메인 페이지 가로 모드에서 로딩 했을때 런타임 에러 수정

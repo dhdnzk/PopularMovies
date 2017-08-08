@@ -19,7 +19,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private final DisplayMetrics displayMetrics;
     private final Context context;
 
-
     public MovieListAdapter(Context context, RecyclerViewClickListener recyclerViewClickListener, DisplayMetrics displayMetrics) {
 
         this.movieInfoList = null;
@@ -97,11 +96,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 
-                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2 - 2, displayMetrics.heightPixels / 2 - 2).centerCrop().into(posterImage);
+                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2).centerCrop().into(posterImage);
 
             }else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 4 - 2 , displayMetrics.heightPixels - 2).centerCrop().into(posterImage);
+//                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 4 - 2 , displayMetrics.heightPixels - 2).centerCrop().into(posterImage);
+                Picasso.with(itemView.getContext()).load(posterImageUrl).resize(displayMetrics.widthPixels / 4, displayMetrics.heightPixels - 2).centerCrop().into(posterImage);
 
             }
 
