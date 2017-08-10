@@ -4,13 +4,11 @@
     <item
         android:id="@+id/it_main_set_as_popularity"
         android:title="@string/set_as_popularity"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/it_main_set_as_rate"
         android:title="@string/set_as_rate"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 
 </menu>

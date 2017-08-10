@@ -29,15 +29,23 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements MovieListAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<MovieInfo[]> {
 
-    private RecyclerView movieListRecyclerView;
-    private MovieListAdapter movieListAdapter;
-    private ConstraintLayout errorPageLayout;
-    private ProgressBar reloadingProgressBar;
     private static final String TARGET_URL_BUNDLE_KEY = "targetUrl";
     private static final int QUERY_REQUESTING_LOADER_ID = 1001;
+    @BindView(R.id.rv_movie_list)
+    RecyclerView movieListRecyclerView;
+    @BindView(R.id.cl_error_page)
+    ConstraintLayout errorPageLayout;
+    @BindView(R.id.pb_reloading)
+    ProgressBar reloadingProgressBar;
+    @BindView(R.id.iv_refresh)
+    ImageView refreshButton;
+    private MovieListAdapter movieListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +54,15 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
         RecyclerView.LayoutManager layoutManager;
 
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 
             layoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
 
-        }
-        else {
+        } else {
 
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
@@ -65,21 +74,13 @@ public class MainActivity extends AppCompatActivity
 
         movieListAdapter = new MovieListAdapter(this, this, metrics);
 
-        movieListRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
-
         movieListRecyclerView.setLayoutManager(layoutManager);
 
         movieListRecyclerView.setHasFixedSize(true);
 
         movieListRecyclerView.setItemViewCacheSize(20);
 
-        errorPageLayout = (ConstraintLayout) findViewById(R.id.cl_error_page);
-
-        ImageView refreshButton = (ImageView) findViewById(R.id.iv_refresh);
-
         getSupportLoaderManager().initLoader(QUERY_REQUESTING_LOADER_ID, null, this);
-
-        reloadingProgressBar = (ProgressBar) findViewById(R.id.pb_reloading);
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,17 +170,15 @@ public class MainActivity extends AppCompatActivity
 
         bundle.putString(TARGET_URL_BUNDLE_KEY, NetworkUtils.LAST_REQUESTED_URL);
 
-        LoaderManager loaderManager= getSupportLoaderManager();
+        LoaderManager loaderManager = getSupportLoaderManager();
 
         Loader loader = loaderManager.getLoader(QUERY_REQUESTING_LOADER_ID);
 
-        if(loader == null) {
+        if (loader == null) {
 
             loaderManager.initLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
 
-        }
-
-        else {
+        } else {
 
             loaderManager.restartLoader(QUERY_REQUESTING_LOADER_ID, bundle, this);
 
@@ -197,13 +196,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onStartLoading() {
 
-                if(movieInfoList != null) {
+                if (movieInfoList != null) {
 
                     deliverResult(movieInfoList);
 
-                }
-
-                else {
+                } else {
 
                     movieListRecyclerView.setVisibility(View.INVISIBLE);
 
@@ -254,7 +251,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<MovieInfo[]> loader, MovieInfo[] data) {
 
-        if(data == null) {
+        if (data == null) {
 
             showErrorMessage();
 

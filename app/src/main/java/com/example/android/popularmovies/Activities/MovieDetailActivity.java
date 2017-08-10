@@ -12,16 +12,23 @@ import android.widget.TextView;
 import com.example.android.popularmovies.MovieInfo;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.utilities.NetworkUtils;
-
 import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TextView titleTextview;
-    private TextView releaseDayTextview;
-    private TextView ratingTextview;
-    private TextView overViewTextview;
-    private ImageView posterImageView;
+    @BindView(R.id.tv_movie_title)
+    TextView titleTextview;
+    @BindView(R.id.tv_release_day)
+    TextView releaseDayTextview;
+    @BindView(R.id.tv_rating)
+    TextView ratingTextview;
+    @BindView(R.id.tv_overview)
+    TextView overViewTextview;
+    @BindView(R.id.iv_posterImage)
+    ImageView posterImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +37,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_movie_detail);
 
-        titleTextview = (TextView) findViewById(R.id.tv_movie_title);
-
-        releaseDayTextview = (TextView) findViewById(R.id.tv_release_day);
-
-        ratingTextview = (TextView) findViewById(R.id.tv_rating);
-
-        overViewTextview = (TextView) findViewById(R.id.tv_overview);
-
-        posterImageView = (ImageView) findViewById(R.id.iv_posterImage);
+        ButterKnife.bind(this);
 
         ActionBar actionBar = getSupportActionBar();
 
-        if(actionBar != null) {
+        if (actionBar != null) {
 
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
@@ -73,7 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         MovieInfo movieInfo = getIntent().getParcelableExtra("movieInfo");
 
-        if(movieInfo == null) {
+        if (movieInfo == null) {
 
             Log.d("getExtra error", "movie info is null");
 

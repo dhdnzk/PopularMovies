@@ -8,12 +8,13 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    private static final String API_KEY = ApiKey.API_KEY;
     public static final String POSTER_BASIC_URL = "http://image.tmdb.org/t/p/";
     public static final String POSTER_SIZE = "w185";
+    private static final String API_KEY = ApiKey.API_KEY;
     public static final String POPULAR_MOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
     public static final String TOP_RATED_MOVIE_URL = "http://api.themoviedb.org/3/movie/top_rated?api_key=" + API_KEY;
     public static String LAST_REQUESTED_URL = POPULAR_MOVIE_URL;
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -38,8 +39,7 @@ public class NetworkUtils {
 
             }
 
-        }
-        finally {
+        } finally {
 
             urlConnection.disconnect();
 

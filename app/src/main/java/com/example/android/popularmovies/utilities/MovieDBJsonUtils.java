@@ -14,7 +14,7 @@ public class MovieDBJsonUtils {
         JSONArray movieInfoArray = jsonObject.getJSONArray("results");
         MovieInfo[] resultMovieInfoList = new MovieInfo[movieInfoArray.length()];
 
-        for(int i = 0; i < movieInfoArray.length(); i ++) {
+        for (int i = 0; i < movieInfoArray.length(); i++) {
 
             JSONObject movieInfoJsonObject = movieInfoArray.getJSONObject(i);
 
@@ -30,7 +30,7 @@ public class MovieDBJsonUtils {
 
             JSONArray genreIdJsonArray = movieInfoJsonObject.getJSONArray("genre_ids");
             int[] genreIds = new int[genreIdJsonArray.length()];
-            for(int j = 0; j < genreIdJsonArray.length(); j ++) {
+            for (int j = 0; j < genreIdJsonArray.length(); j++) {
                 genreIds[j] = genreIdJsonArray.getInt(j);
             }
 

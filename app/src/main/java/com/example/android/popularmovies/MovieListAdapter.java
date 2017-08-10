@@ -10,15 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.android.popularmovies.utilities.NetworkUtils;
-
 import com.squareup.picasso.Picasso;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
 
-    private MovieInfo[] movieInfoList;
     private final RecyclerViewClickListener recyclerViewClickListener;
     private final DisplayMetrics displayMetrics;
     private final Context context;
+    private MovieInfo[] movieInfoList;
 
     public MovieListAdapter(Context context, RecyclerViewClickListener recyclerViewClickListener, DisplayMetrics displayMetrics) {
 
@@ -57,7 +56,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public int getItemCount() {
 
-        if(movieInfoList == null) {
+        if (movieInfoList == null) {
 
             return 0;
 
@@ -67,15 +66,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     }
 
+    public MovieInfo[] getMovieInfoList() {
+
+        return movieInfoList;
+
+    }
+
     public void setMovieInfoList(MovieInfo[] movieInfoList) {
 
         this.movieInfoList = movieInfoList;
 
     }
 
-    public MovieInfo[] getMovieInfoList() {
+    public interface RecyclerViewClickListener {
 
-        return movieInfoList;
+        void onListItemClicked(int position);
 
     }
 
@@ -97,10 +102,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
             String posterImageUrl =
                     NetworkUtils.POSTER_BASIC_URL +
-                    NetworkUtils.POSTER_SIZE +
-                    movieInfoList[position].getPosterPath();
+                            NetworkUtils.POSTER_SIZE +
+                            movieInfoList[position].getPosterPath();
 
-            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 
                 Picasso.with(itemView.getContext())
                         .load(posterImageUrl)
@@ -108,8 +113,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                         .centerCrop()
                         .into(posterImage);
 
-            }
-            else if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            } else if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
                 Picasso.with(itemView.getContext())
                         .load(posterImageUrl)
@@ -119,7 +123,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
             }
 
-
         }
 
         @Override
@@ -128,12 +131,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             recyclerViewClickListener.onListItemClicked(getAdapterPosition());
 
         }
-
-    }
-
-    public interface RecyclerViewClickListener {
-
-        void onListItemClicked(int position);
 
     }
 

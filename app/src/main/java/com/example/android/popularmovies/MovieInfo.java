@@ -5,6 +5,23 @@ import android.os.Parcelable;
 
 public class MovieInfo implements Parcelable {
 
+    public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
+
+        @Override
+        public MovieInfo createFromParcel(Parcel in) {
+
+            return new MovieInfo(in);
+
+        }
+
+        @Override
+        public MovieInfo[] newArray(int size) {
+
+            return new MovieInfo[size];
+
+        }
+
+    };
     private final int voteCount;
     private final int id;
     private final boolean video;
@@ -37,6 +54,7 @@ public class MovieInfo implements Parcelable {
         releaseDate = in.readString();
     }
 
+
     public MovieInfo(int voteCount,
                      int id,
                      boolean video,
@@ -68,25 +86,6 @@ public class MovieInfo implements Parcelable {
         this.releaseDate = releaseDate;
 
     }
-
-
-    public static final Creator<MovieInfo> CREATOR = new Creator<MovieInfo>() {
-
-        @Override
-        public MovieInfo createFromParcel(Parcel in) {
-
-            return new MovieInfo(in);
-
-        }
-
-        @Override
-        public MovieInfo[] newArray(int size) {
-
-            return new MovieInfo[size];
-
-        }
-
-    };
 
     @Override
     public int describeContents() {
