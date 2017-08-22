@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.example.android.popularmovies.MovieInfo;
-import com.example.android.popularmovies.MovieListAdapter;
+import com.example.android.popularmovies.datas.MovieInfo;
+import com.example.android.popularmovies.datas.MovieListAdapter;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
 import com.example.android.popularmovies.utilities.NetworkUtils;
@@ -303,4 +303,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
+
+/*
+ * 이 단계에서는 1 단계에서 작성한 앱에 추가 기능을 추가합니다.
+ * 동영상 세부 정보보기에 정보를 추가합니다.
+ *      TODO : 사용자가 예고편을 (YouTube 앱 또는 웹 브라우저에서)보고 시청할 수 있습니다.
+ *      TODO : 사용자는 선택한 영화에 대한 리뷰를 읽을 수 있습니다.
+ *      TODO : 또한 사용자는 단추 (별표)를 눌러 세부 정보보기에서 동영상을 즐겨 찾기로 표시 할 수 있습니다. 이것은  유지 관리되며 API 요청 *이 필요하지 않은 지역 영화 컬렉션을위한 것입니다.
+ *      TODO : 기본보기의 기존 정렬 기준을 수정하여 즐겨 찾기 컬렉션을 표시하는 추가 피벗을 포함시킵니다.
+ *
+ */
 
