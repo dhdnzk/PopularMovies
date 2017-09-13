@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.activities;
+package com.dongttang.popularmovies.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.datas.MovieInfo;
-import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.utilities.NetworkUtils;
+import com.dongttang.popularmovies.datas.MovieInfo;
+import com.dongttang.popularmovies.R;
+import com.dongttang.popularmovies.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

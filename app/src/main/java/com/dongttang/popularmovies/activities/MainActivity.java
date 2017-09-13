@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.activities;
+package com.dongttang.popularmovies.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,11 +18,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.example.android.popularmovies.datas.MovieInfo;
-import com.example.android.popularmovies.datas.MovieListAdapter;
-import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.utilities.MovieDBJsonUtils;
-import com.example.android.popularmovies.utilities.NetworkUtils;
+import com.dongttang.popularmovies.datas.MovieInfo;
+import com.dongttang.popularmovies.datas.MovieListAdapter;
+import com.dongttang.popularmovies.R;
+import com.dongttang.popularmovies.utilities.MovieDBJsonUtils;
+import com.dongttang.popularmovies.utilities.NetworkUtils;
 
 import org.json.JSONException;
 

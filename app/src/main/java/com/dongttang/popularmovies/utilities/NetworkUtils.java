@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.utilities;
+package com.dongttang.popularmovies.utilities;
 
 import java.io.IOException;
 import java.io.InputStream;

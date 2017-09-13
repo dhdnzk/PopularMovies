@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.popularmovies">
+    package="com.dongttang.popularmovies">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,7 +13,7 @@
         android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.dongttang.popularmovies.activities.MainActivity"
             android:label="Pop Movies"
             android:launchMode="singleTop">
             <intent-filter>
@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MovieDetailActivity"
+            android:name="com.dongttang.popularmovies.activities.MovieDetailActivity"
             android:label="Movie detail"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName="com.dongttang.popularmovies.activities.MainActivity" />
     </application>
 
 </manifest>
